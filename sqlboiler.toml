@@ -5,7 +5,7 @@ no-tests = true
 add-enum-types = true
 
 [mysql]
-  dbname  = "platform_engineer"
+  dbname  = "platform_engineer_clone"
   host    = "localhost"
   port    = 3306
   user    = "root"
