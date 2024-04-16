@@ -1,0 +1,14 @@
+output   = "models"
+pkgname = "models"
+wipe     = true
+no-tests = true
+add-enum-types = true
+
+[mysql]
+  dbname  = "platform_engineer"
+  host    = "localhost"
+  port    = 3306
+  user    = "root"
+  pass    = "eunice99x"
+  sslmode = "false"
+  tinyint_as_int = true
