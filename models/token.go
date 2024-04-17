@@ -24,13 +24,9 @@ import (
 
 // Token is an object representing the database table.
 type Token struct {
-	ID        int         `boil:"id" json:"id" toml:"id" yaml:"id"`
-	Key       string      `boil:"key" json:"key" toml:"key" yaml:"key"`
+	ID        int         `boil:"ID" json:"ID" toml:"ID" yaml:"ID"`
+	Key       null.String `boil:"key" json:"key,omitempty" toml:"key" yaml:"key,omitempty"`
 	CreatedAt null.Time   `boil:"created_at" json:"created_at,omitempty" toml:"created_at" yaml:"created_at,omitempty"`
-	ExpiresAt null.Time   `boil:"expires_at" json:"expires_at,omitempty" toml:"expires_at" yaml:"expires_at,omitempty"`
-	Revoked   null.Int8   `boil:"revoked" json:"revoked,omitempty" toml:"revoked" yaml:"revoked,omitempty"`
-	Expired   null.Int8   `boil:"expired" json:"expired,omitempty" toml:"expired" yaml:"expired,omitempty"`
-	CreatedBy null.String `boil:"created_by" json:"created_by,omitempty" toml:"created_by" yaml:"created_by,omitempty"`
 
 	R *tokenR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L tokenL  `boil:"-" json:"-" toml:"-" yaml:"-"`
@@ -40,36 +36,20 @@ var TokenColumns = struct {
 	ID        string
 	Key       string
 	CreatedAt string
-	ExpiresAt string
-	Revoked   string
-	Expired   string
-	CreatedBy string
 }{
-	ID:        "id",
+	ID:        "ID",
 	Key:       "key",
 	CreatedAt: "created_at",
-	ExpiresAt: "expires_at",
-	Revoked:   "revoked",
-	Expired:   "expired",
-	CreatedBy: "created_by",
 }
 
 var TokenTableColumns = struct {
 	ID        string
 	Key       string
 	CreatedAt string
-	ExpiresAt string
-	Revoked   string
-	Expired   string
-	CreatedBy string
 }{
-	ID:        "token.id",
+	ID:        "token.ID",
 	Key:       "token.key",
 	CreatedAt: "token.created_at",
-	ExpiresAt: "token.expires_at",
-	Revoked:   "token.revoked",
-	Expired:   "token.expired",
-	CreatedBy: "token.created_by",
 }
 
 // Generated where
@@ -96,93 +76,6 @@ func (w whereHelperint) NIN(slice []int) qm.QueryMod {
 	}
 	return qm.WhereNotIn(fmt.Sprintf("%s NOT IN ?", w.field), values...)
 }
-
-type whereHelperstring struct{ field string }
-
-func (w whereHelperstring) EQ(x string) qm.QueryMod    { return qmhelper.Where(w.field, qmhelper.EQ, x) }
-func (w whereHelperstring) NEQ(x string) qm.QueryMod   { return qmhelper.Where(w.field, qmhelper.NEQ, x) }
-func (w whereHelperstring) LT(x string) qm.QueryMod    { return qmhelper.Where(w.field, qmhelper.LT, x) }
-func (w whereHelperstring) LTE(x string) qm.QueryMod   { return qmhelper.Where(w.field, qmhelper.LTE, x) }
-func (w whereHelperstring) GT(x string) qm.QueryMod    { return qmhelper.Where(w.field, qmhelper.GT, x) }
-func (w whereHelperstring) GTE(x string) qm.QueryMod   { return qmhelper.Where(w.field, qmhelper.GTE, x) }
-func (w whereHelperstring) LIKE(x string) qm.QueryMod  { return qm.Where(w.field+" LIKE ?", x) }
-func (w whereHelperstring) NLIKE(x string) qm.QueryMod { return qm.Where(w.field+" NOT LIKE ?", x) }
-func (w whereHelperstring) IN(slice []string) qm.QueryMod {
-	values := make([]interface{}, 0, len(slice))
-	for _, value := range slice {
-		values = append(values, value)
-	}
-	return qm.WhereIn(fmt.Sprintf("%s IN ?", w.field), values...)
-}
-func (w whereHelperstring) NIN(slice []string) qm.QueryMod {
-	values := make([]interface{}, 0, len(slice))
-	for _, value := range slice {
-		values = append(values, value)
-	}
-	return qm.WhereNotIn(fmt.Sprintf("%s NOT IN ?", w.field), values...)
-}
-
-type whereHelpernull_Time struct{ field string }
-
-func (w whereHelpernull_Time) EQ(x null.Time) qm.QueryMod {
-	return qmhelper.WhereNullEQ(w.field, false, x)
-}
-func (w whereHelpernull_Time) NEQ(x null.Time) qm.QueryMod {
-	return qmhelper.WhereNullEQ(w.field, true, x)
-}
-func (w whereHelpernull_Time) LT(x null.Time) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.LT, x)
-}
-func (w whereHelpernull_Time) LTE(x null.Time) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.LTE, x)
-}
-func (w whereHelpernull_Time) GT(x null.Time) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.GT, x)
-}
-func (w whereHelpernull_Time) GTE(x null.Time) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.GTE, x)
-}
-
-func (w whereHelpernull_Time) IsNull() qm.QueryMod    { return qmhelper.WhereIsNull(w.field) }
-func (w whereHelpernull_Time) IsNotNull() qm.QueryMod { return qmhelper.WhereIsNotNull(w.field) }
-
-type whereHelpernull_Int8 struct{ field string }
-
-func (w whereHelpernull_Int8) EQ(x null.Int8) qm.QueryMod {
-	return qmhelper.WhereNullEQ(w.field, false, x)
-}
-func (w whereHelpernull_Int8) NEQ(x null.Int8) qm.QueryMod {
-	return qmhelper.WhereNullEQ(w.field, true, x)
-}
-func (w whereHelpernull_Int8) LT(x null.Int8) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.LT, x)
-}
-func (w whereHelpernull_Int8) LTE(x null.Int8) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.LTE, x)
-}
-func (w whereHelpernull_Int8) GT(x null.Int8) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.GT, x)
-}
-func (w whereHelpernull_Int8) GTE(x null.Int8) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.GTE, x)
-}
-func (w whereHelpernull_Int8) IN(slice []int8) qm.QueryMod {
-	values := make([]interface{}, 0, len(slice))
-	for _, value := range slice {
-		values = append(values, value)
-	}
-	return qm.WhereIn(fmt.Sprintf("%s IN ?", w.field), values...)
-}
-func (w whereHelpernull_Int8) NIN(slice []int8) qm.QueryMod {
-	values := make([]interface{}, 0, len(slice))
-	for _, value := range slice {
-		values = append(values, value)
-	}
-	return qm.WhereNotIn(fmt.Sprintf("%s NOT IN ?", w.field), values...)
-}
-
-func (w whereHelpernull_Int8) IsNull() qm.QueryMod    { return qmhelper.WhereIsNull(w.field) }
-func (w whereHelpernull_Int8) IsNotNull() qm.QueryMod { return qmhelper.WhereIsNotNull(w.field) }
 
 type whereHelpernull_String struct{ field string }
 
@@ -228,22 +121,38 @@ func (w whereHelpernull_String) NIN(slice []string) qm.QueryMod {
 func (w whereHelpernull_String) IsNull() qm.QueryMod    { return qmhelper.WhereIsNull(w.field) }
 func (w whereHelpernull_String) IsNotNull() qm.QueryMod { return qmhelper.WhereIsNotNull(w.field) }
 
+type whereHelpernull_Time struct{ field string }
+
+func (w whereHelpernull_Time) EQ(x null.Time) qm.QueryMod {
+	return qmhelper.WhereNullEQ(w.field, false, x)
+}
+func (w whereHelpernull_Time) NEQ(x null.Time) qm.QueryMod {
+	return qmhelper.WhereNullEQ(w.field, true, x)
+}
+func (w whereHelpernull_Time) LT(x null.Time) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LT, x)
+}
+func (w whereHelpernull_Time) LTE(x null.Time) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LTE, x)
+}
+func (w whereHelpernull_Time) GT(x null.Time) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GT, x)
+}
+func (w whereHelpernull_Time) GTE(x null.Time) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GTE, x)
+}
+
+func (w whereHelpernull_Time) IsNull() qm.QueryMod    { return qmhelper.WhereIsNull(w.field) }
+func (w whereHelpernull_Time) IsNotNull() qm.QueryMod { return qmhelper.WhereIsNotNull(w.field) }
+
 var TokenWhere = struct {
 	ID        whereHelperint
-	Key       whereHelperstring
+	Key       whereHelpernull_String
 	CreatedAt whereHelpernull_Time
-	ExpiresAt whereHelpernull_Time
-	Revoked   whereHelpernull_Int8
-	Expired   whereHelpernull_Int8
-	CreatedBy whereHelpernull_String
 }{
-	ID:        whereHelperint{field: "`token`.`id`"},
-	Key:       whereHelperstring{field: "`token`.`key`"},
+	ID:        whereHelperint{field: "`token`.`ID`"},
+	Key:       whereHelpernull_String{field: "`token`.`key`"},
 	CreatedAt: whereHelpernull_Time{field: "`token`.`created_at`"},
-	ExpiresAt: whereHelpernull_Time{field: "`token`.`expires_at`"},
-	Revoked:   whereHelpernull_Int8{field: "`token`.`revoked`"},
-	Expired:   whereHelpernull_Int8{field: "`token`.`expired`"},
-	CreatedBy: whereHelpernull_String{field: "`token`.`created_by`"},
 }
 
 // TokenRels is where relationship names are stored.
@@ -263,10 +172,10 @@ func (*tokenR) NewStruct() *tokenR {
 type tokenL struct{}
 
 var (
-	tokenAllColumns            = []string{"id", "key", "created_at", "expires_at", "revoked", "expired", "created_by"}
-	tokenColumnsWithoutDefault = []string{"key", "expires_at", "created_by"}
-	tokenColumnsWithDefault    = []string{"id", "created_at", "revoked", "expired"}
-	tokenPrimaryKeyColumns     = []string{"id"}
+	tokenAllColumns            = []string{"ID", "key", "created_at"}
+	tokenColumnsWithoutDefault = []string{"key", "created_at"}
+	tokenColumnsWithDefault    = []string{"ID"}
+	tokenPrimaryKeyColumns     = []string{"ID"}
 	tokenGeneratedColumns      = []string{}
 )
 
@@ -596,7 +505,7 @@ func FindToken(ctx context.Context, exec boil.ContextExecutor, iD int, selectCol
 		sel = strings.Join(strmangle.IdentQuoteSlice(dialect.LQ, dialect.RQ, selectCols), ",")
 	}
 	query := fmt.Sprintf(
-		"select %s from `token` where `id`=?", sel,
+		"select %s from `token` where `ID`=?", sel,
 	)
 
 	q := queries.Raw(query, iD)
@@ -701,7 +610,7 @@ func (o *Token) Insert(ctx context.Context, exec boil.ContextExecutor, columns b
 	}
 
 	o.ID = int(lastID)
-	if lastID != 0 && len(cache.retMapping) == 1 && cache.retMapping[0] == tokenMapping["id"] {
+	if lastID != 0 && len(cache.retMapping) == 1 && cache.retMapping[0] == tokenMapping["ID"] {
 		goto CacheNoHooks
 	}
 
@@ -858,7 +767,7 @@ func (o TokenSlice) UpdateAll(ctx context.Context, exec boil.ContextExecutor, co
 }
 
 var mySQLTokenUniqueColumns = []string{
-	"id",
+	"ID",
 }
 
 // Upsert attempts an insert using an executor, and does an update or ignore on conflict.
@@ -984,7 +893,7 @@ func (o *Token) Upsert(ctx context.Context, exec boil.ContextExecutor, updateCol
 	}
 
 	o.ID = int(lastID)
-	if lastID != 0 && len(cache.retMapping) == 1 && cache.retMapping[0] == tokenMapping["id"] {
+	if lastID != 0 && len(cache.retMapping) == 1 && cache.retMapping[0] == tokenMapping["ID"] {
 		goto CacheNoHooks
 	}
 
@@ -1026,7 +935,7 @@ func (o *Token) Delete(ctx context.Context, exec boil.ContextExecutor) (int64, e
 	}
 
 	args := queries.ValuesFromMapping(reflect.Indirect(reflect.ValueOf(o)), tokenPrimaryKeyMapping)
-	sql := "DELETE FROM `token` WHERE `id`=?"
+	sql := "DELETE FROM `token` WHERE `ID`=?"
 
 	if boil.IsDebug(ctx) {
 		writer := boil.DebugWriterFrom(ctx)
@@ -1164,7 +1073,7 @@ func (o *TokenSlice) ReloadAll(ctx context.Context, exec boil.ContextExecutor) e
 // TokenExists checks if the Token row exists.
 func TokenExists(ctx context.Context, exec boil.ContextExecutor, iD int) (bool, error) {
 	var exists bool
-	sql := "select exists(select 1 from `token` where `id`=? limit 1)"
+	sql := "select exists(select 1 from `token` where `ID`=? limit 1)"
 
 	if boil.IsDebug(ctx) {
 		writer := boil.DebugWriterFrom(ctx)

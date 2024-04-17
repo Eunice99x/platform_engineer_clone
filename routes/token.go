@@ -3,6 +3,7 @@ package routes
 import (
 	"context"
 	"github.com/gofiber/fiber/v2"
+	"github.com/volatiletech/null/v8"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"math/rand"
 	"platform_engineer_clone/models"
@@ -16,7 +17,7 @@ func CreateToken(ctx context.Context, db boil.ContextExecutor, c *fiber.Ctx) err
 	}
 
 	// Set the key
-	token.Key = randomKey()
+	token.Key = null.StringFrom(randomKey())
 
 	// Insert the token into the database
 	if err := token.Insert(ctx, db, boil.Infer()); err != nil {
@@ -45,4 +46,15 @@ func randomKey() string {
 	}
 
 	return string(token)
+}
+
+func GetAllTokens(ctx context.Context, db boil.ContextExecutor, c *fiber.Ctx) error {
+	// Fetch all tokens from the database
+	tokens, err := models.Tokens().All(ctx, db)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	// Return the list of tokens
+	return c.JSON(tokens)
 }
