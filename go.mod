@@ -12,6 +12,7 @@ require (
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
 	github.com/gofiber/fiber/v2 v2.52.4 // indirect
+	github.com/gofrs/uuid v4.2.0+incompatible // indirect
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
@@ -42,6 +43,8 @@ require (
 	github.com/valyala/fasthttp v1.51.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	github.com/volatiletech/inflect v0.0.1 // indirect
+	github.com/volatiletech/null/v8 v8.1.2 // indirect
+	github.com/volatiletech/randomize v0.0.1 // indirect
 	github.com/volatiletech/sqlboiler/v4 v4.16.2 // indirect
 	github.com/volatiletech/strmangle v0.0.6 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
