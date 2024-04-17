@@ -22,6 +22,10 @@ func setupRoutes(app *fiber.App, db *sql.DB) {
 	app.Get("/tokens/:id", func(c *fiber.Ctx) error {
 		return routes.GetToken(context.Background(), db, c)
 	})
+
+	app.Delete("/tokens/:id", func(c *fiber.Ctx) error {
+		return routes.DeleteToken(context.Background(), db, c)
+	})
 }
 
 func main() {

@@ -57,15 +57,12 @@ func GetAllTokens(ctx context.Context, db boil.ContextExecutor, c *fiber.Ctx) er
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 
-	// Return the list of tokens
 	return c.JSON(tokens)
 }
 
 func GetToken(ctx context.Context, db boil.ContextExecutor, c *fiber.Ctx) error {
-	// Get the token ID or key from the request parameters or query string
-	tokenID := c.Params("id") // Assuming the token ID is passed as a route parameter, adjust as needed
+	tokenID := c.Params("id")
 
-	// Fetch the token from the database based on the ID or key
 	token, err := models.Tokens(qm.Where("id = ?", tokenID)).One(ctx, db)
 	if err != nil {
 		// If the token is not found or any other error occurs, return an error response
@@ -75,6 +72,24 @@ func GetToken(ctx context.Context, db boil.ContextExecutor, c *fiber.Ctx) error 
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 
-	// Return the token
 	return c.JSON(token)
+}
+
+func DeleteToken(ctx context.Context, db boil.ContextExecutor, c *fiber.Ctx) error {
+	tokenID := c.Params("id")
+
+	token, err := models.Tokens(qm.Where("id = ?", tokenID)).One(ctx, db)
+	if err != nil {
+		// If the token is not found or any other error occurs, return an error response
+		if err == sql.ErrNoRows {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Token not found"})
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	if _, err := token.Delete(ctx, db); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(fiber.Map{"message": "Token deleted successfully"})
 }
