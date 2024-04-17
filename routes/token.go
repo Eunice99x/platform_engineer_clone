@@ -2,9 +2,11 @@ package routes
 
 import (
 	"context"
+	"database/sql"
 	"github.com/gofiber/fiber/v2"
 	"github.com/volatiletech/null/v8"
 	"github.com/volatiletech/sqlboiler/v4/boil"
+	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 	"math/rand"
 	"platform_engineer_clone/models"
 	"time"
@@ -57,4 +59,22 @@ func GetAllTokens(ctx context.Context, db boil.ContextExecutor, c *fiber.Ctx) er
 
 	// Return the list of tokens
 	return c.JSON(tokens)
+}
+
+func GetToken(ctx context.Context, db boil.ContextExecutor, c *fiber.Ctx) error {
+	// Get the token ID or key from the request parameters or query string
+	tokenID := c.Params("id") // Assuming the token ID is passed as a route parameter, adjust as needed
+
+	// Fetch the token from the database based on the ID or key
+	token, err := models.Tokens(qm.Where("id = ?", tokenID)).One(ctx, db)
+	if err != nil {
+		// If the token is not found or any other error occurs, return an error response
+		if err == sql.ErrNoRows {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Token not found"})
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	// Return the token
+	return c.JSON(token)
 }
