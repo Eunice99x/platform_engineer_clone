@@ -6,6 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gofiber/fiber/v2"
 	"log"
+	"platform_engineer_clone/dependency_injection/dic"
 	"platform_engineer_clone/routes"
 )
 
@@ -27,7 +28,7 @@ func setupRoutes(app *fiber.App, db *sql.DB) {
 	})
 }
 
-func main() {
+func intiApi(ctn *dic.Container) {
 	// Initialize database connection
 	db, err := sql.Open("mysql", "root:eunice99x@tcp(127.0.0.1:3306)/platform_engineer_clone?parseTime=true")
 	if err != nil {
@@ -43,4 +44,15 @@ func main() {
 
 	// Start Fiber server
 	log.Fatal(app.Listen(":3000"))
+}
+
+func main() {
+
+	builder, err := dic.NewBuilder()
+	if err != nil {
+		log.Fatalf("error trying to initialize the builder: %v", err.Error())
+	}
+	ctn := builder.Build()
+
+	intiApi(ctn)
 }
