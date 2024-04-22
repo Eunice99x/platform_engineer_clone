@@ -1,12 +1,12 @@
 package token
 
 import (
-	"github.com/dembygenesis/platform_engineer_exam/api/v0/token/tokenfakes"
-	"github.com/dembygenesis/platform_engineer_exam/models"
 	"github.com/gofiber/fiber/v2"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
+	"platform_engineer_clone/api/v0/token/tokenfakes"
+	"platform_engineer_clone/models"
 	"sync"
 	"testing"
 )

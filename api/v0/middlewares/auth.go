@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/dembygenesis/platform_engineer_exam/api/helpers"
-	"github.com/dembygenesis/platform_engineer_exam/models"
-	"github.com/dembygenesis/platform_engineer_exam/src/utils/common"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/basicauth"
 	"github.com/sirupsen/logrus"
+	"platform_engineer_clone/api/helpers"
+	"platform_engineer_clone/models"
+	"platform_engineer_clone/src/utils/common"
 )
 
 const (

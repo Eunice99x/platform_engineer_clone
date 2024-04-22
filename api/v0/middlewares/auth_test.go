@@ -1,14 +1,14 @@
 package middlewares
 
 import (
-	"github.com/dembygenesis/platform_engineer_exam/api/helpers"
-	"github.com/dembygenesis/platform_engineer_exam/api/v0/middlewares/middlewaresfakes"
-	"github.com/dembygenesis/platform_engineer_exam/models"
 	"github.com/friendsofgo/errors"
 	"github.com/gofiber/fiber/v2"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
+	"platform_engineer_clone/api/helpers"
+	"platform_engineer_clone/api/v0/middlewares/middlewaresfakes"
+	"platform_engineer_clone/models"
 	"testing"
 )
 

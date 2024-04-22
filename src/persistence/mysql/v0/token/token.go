@@ -3,16 +3,16 @@ package token
 import (
 	"context"
 	"database/sql"
-	"github.com/dembygenesis/platform_engineer_exam/models"
-	"github.com/dembygenesis/platform_engineer_exam/src/persistence/mysql"
-	"github.com/dembygenesis/platform_engineer_exam/src/persistence/mysql/models_schema"
-	"github.com/dembygenesis/platform_engineer_exam/src/utils/common"
 	"github.com/friendsofgo/errors"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/sirupsen/logrus"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 	"math/rand"
+	"platform_engineer_clone/models"
+	"platform_engineer_clone/src/persistence/mysql"
+	"platform_engineer_clone/src/persistence/mysql/models_schema"
+	"platform_engineer_clone/src/utils/common"
 	"time"
 )
 

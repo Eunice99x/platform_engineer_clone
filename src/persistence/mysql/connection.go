@@ -3,10 +3,10 @@ package mysql
 import (
 	"database/sql"
 	"fmt"
-	"github.com/dembygenesis/platform_engineer_exam/src/config"
-	"github.com/dembygenesis/platform_engineer_exam/src/utils/strings"
 	"github.com/friendsofgo/errors"
 	_ "github.com/go-sql-driver/mysql"
+	"platform_engineer_clone/src/config"
+	"platform_engineer_clone/src/utils/strings"
 	"time"
 )
 

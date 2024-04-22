@@ -3,10 +3,14 @@ package token
 import (
 	"context"
 	"fmt"
-	"github.com/pkg/errors"
+	"github.com/friendsofgo/errors"
+	"github.com/sirupsen/logrus"
+	"platform_engineer_clone/models"
+	"platform_engineer_clone/src/utils/common"
 	"time"
 )
 
+//go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 . dataPersistence
 type dataPersistence interface {
 	GetAll(ctx context.Context) ([]models.Token, error)
 	Generate(ctx context.Context, createdBy int, randomCharMinLength int, randomCharMaxLength int) (string, error)

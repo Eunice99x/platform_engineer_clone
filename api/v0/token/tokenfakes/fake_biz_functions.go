@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/dembygenesis/platform_engineer_exam/models"
+	"platform_engineer_clone/models"
 )
 
 type FakeBizFunctions struct {

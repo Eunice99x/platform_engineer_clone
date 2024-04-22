@@ -2,10 +2,10 @@ package middlewares
 
 import (
 	"errors"
-	"github.com/dembygenesis/platform_engineer_exam/api/helpers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"net/http"
+	"platform_engineer_clone/api/helpers"
 	"time"
 )
 

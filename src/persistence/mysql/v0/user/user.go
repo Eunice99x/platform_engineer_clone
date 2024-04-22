@@ -2,11 +2,11 @@ package user
 
 import (
 	"database/sql"
-	"github.com/dembygenesis/platform_engineer_exam/models"
-	"github.com/dembygenesis/platform_engineer_exam/src/persistence/mysql"
-	"github.com/dembygenesis/platform_engineer_exam/src/persistence/mysql/models_schema"
 	"github.com/friendsofgo/errors"
 	"golang.org/x/crypto/bcrypt"
+	"platform_engineer_clone/models"
+	"platform_engineer_clone/src/persistence/mysql"
+	"platform_engineer_clone/src/persistence/mysql/models_schema"
 )
 
 type PersistenceUser struct {

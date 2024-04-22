@@ -1,6 +1,6 @@
 package validation
 
-import "github.com/dembygenesis/platform_engineer_exam/src/utils/date_handling"
+import "platform_engineer_clone/src/utils/date_handling"
 
 type CustomValidation struct {
 	Name     string

@@ -2,13 +2,13 @@ package validation
 
 import (
 	"fmt"
-	"github.com/dembygenesis/platform_engineer_exam/src/utils/data"
-	strings2 "github.com/dembygenesis/platform_engineer_exam/src/utils/strings"
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
 	"github.com/pkg/errors"
 	"github.com/ssoroka/slice"
+	"platform_engineer_clone/src/utils/data"
+	strings2 "platform_engineer_clone/src/utils/strings"
 	"reflect"
 	"strings"
 )

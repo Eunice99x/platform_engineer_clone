@@ -1,4 +1,4 @@
-USE platform_engineer_clone;
+USE platform_engineer;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (

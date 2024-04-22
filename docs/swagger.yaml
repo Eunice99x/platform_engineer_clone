@@ -1,0 +1,168 @@
+basePath: http://localhost:8081/api
+definitions:
+  models.AuthFailBadRequest:
+    properties:
+      errors:
+        example:
+        - bad request
+        items:
+          type: string
+        type: array
+    type: object
+  models.AuthFailInternalServerError:
+    properties:
+      errors:
+        example:
+        - internal server error
+        items:
+          type: string
+        type: array
+    type: object
+  models.Token:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      expired:
+        type: boolean
+      expires_at:
+        type: string
+      id:
+        type: integer
+      key:
+        type: string
+      revoked:
+        type: boolean
+    type: object
+info:
+  contact:
+    email: your@mail.com
+    name: API Support
+  description: 'Basic Auth Username: admin@gmail.com | Basic Auth Password: 123456'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: API
+  version: "1.0"
+paths:
+  /v0/token:
+    get:
+      consumes:
+      - application/json
+      description: Fetches all tokens added by the admin user
+      operationId: GetAll
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Token'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.AuthFailBadRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.AuthFailInternalServerError'
+      security:
+      - BasicAuth: []
+      summary: Fetch all
+      tags:
+      - Token
+    post:
+      consumes:
+      - application/json
+      description: Creates a new invite token
+      operationId: GetToken
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.AuthFailBadRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.AuthFailInternalServerError'
+      security:
+      - BasicAuth: []
+      summary: Create
+      tags:
+      - Token
+  /v0/token/{token}/revoke:
+    delete:
+      consumes:
+      - application/json
+      description: Revokes a token's access
+      operationId: Revoke
+      parameters:
+      - description: token
+        in: path
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.AuthFailBadRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.AuthFailInternalServerError'
+      security:
+      - BasicAuth: []
+      summary: Revoke
+      tags:
+      - Token
+  /v0/token/{token}/validate:
+    get:
+      consumes:
+      - application/json
+      description: Validates a string token passed
+      operationId: ValidateToken
+      parameters:
+      - description: token
+        in: path
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.AuthFailBadRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.AuthFailInternalServerError'
+      summary: Validate
+      tags:
+      - Token
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

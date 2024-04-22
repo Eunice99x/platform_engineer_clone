@@ -2,11 +2,11 @@ package middlewares
 
 import (
 	"encoding/json"
-	"github.com/dembygenesis/platform_engineer_exam/api/helpers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/stretchr/testify/require"
 	"net/http"
 	"net/http/httptest"
+	"platform_engineer_clone/api/helpers"
 	"sync"
 	"testing"
 )

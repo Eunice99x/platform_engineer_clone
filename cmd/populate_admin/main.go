@@ -3,10 +3,15 @@ package main
 import (
 	"context"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/sirupsen/logrus"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 	"platform_engineer_clone/dependency_injection/dic"
+	"platform_engineer_clone/src/persistence/mysql"
+	"platform_engineer_clone/src/persistence/mysql/models_schema"
+	"platform_engineer_clone/src/utils/common"
+	"platform_engineer_clone/src/utils/strings"
 )
 
 func main() {
